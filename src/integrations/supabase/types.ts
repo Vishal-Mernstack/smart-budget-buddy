@@ -14,7 +14,138 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      budgets: {
+        Row: {
+          category: string
+          color: string
+          created_at: string
+          icon: string
+          id: string
+          limit_amount: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          color: string
+          created_at?: string
+          icon: string
+          id?: string
+          limit_amount: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          color?: string
+          created_at?: string
+          icon?: string
+          id?: string
+          limit_amount?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          city: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          monthly_allowance: number | null
+          next_allowance_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          monthly_allowance?: number | null
+          next_allowance_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          monthly_allowance?: number | null
+          next_allowance_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      student_perks: {
+        Row: {
+          amount_saved: number
+          created_at: string
+          discount_percentage: number | null
+          id: string
+          perk_name: string
+          times_used: number
+          user_id: string
+        }
+        Insert: {
+          amount_saved?: number
+          created_at?: string
+          discount_percentage?: number | null
+          id?: string
+          perk_name: string
+          times_used?: number
+          user_id: string
+        }
+        Update: {
+          amount_saved?: number
+          created_at?: string
+          discount_percentage?: number | null
+          id?: string
+          perk_name?: string
+          times_used?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          description: string
+          id: string
+          transaction_date: string
+          transaction_type: string
+          upi_handle: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          created_at?: string
+          description: string
+          id?: string
+          transaction_date?: string
+          transaction_type: string
+          upi_handle?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          transaction_date?: string
+          transaction_type?: string
+          upi_handle?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
