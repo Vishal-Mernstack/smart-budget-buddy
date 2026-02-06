@@ -1,73 +1,230 @@
-# Welcome to your Lovable project
+# RupeeRise AI 💸🇮🇳
 
-## Project info
+RupeeRise AI is a **student-focused intelligent budget tracker for the Indian market**. It is designed as a **fintech-grade project** that demonstrates how modern expense tracking systems work **without directly handling money**, staying fully compliant with RBI and academic guidelines.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+The project focuses on **smart spending intelligence**, realistic **UPI-based transaction tracking (simulated)**, and **AI-powered insights** to help students manage their finances better.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🚀 Project Vision
 
-**Use Lovable**
+Indian students face rising expenses, irregular allowances, and poor visibility into daily spending. Existing apps are either too generic or too complex.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+**RupeeRise AI solves this by:**
 
-Changes made via Lovable will be committed automatically to this repo.
+* Tracking spending the way students actually pay (UPI-first)
+* Showing daily burn rate instead of just monthly totals
+* Making finance fun with localized insights like the **Chai-Samosa Index**
+* Demonstrating real fintech architecture used in production systems
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## ✨ Core Features
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 1️⃣ Smart UPI Expense Tracking (Simulated)
 
-Follow these steps:
+* Generates **UPI payment intents** (`upi://pay`)
+* User pays via their normal UPI app (Google Pay / PhonePe / Paytm)
+* After payment, the user confirms the transaction
+* Expense is **automatically added** to the dashboard
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+> 🔒 No money is processed or stored by RupeeRise AI
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+### 2️⃣ Live Spend Mode (Auto Track)
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+* Toggle-based **Smart Auto Track** system
+* Automatically records confirmed payments as expenses
+* Real-time updates to:
 
-**Edit a file directly in GitHub**
+  * Dashboard cards
+  * Charts
+  * Daily Burn Rate
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+> ℹ️ Live tracking is simulated for demo and educational purposes
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### 3️⃣ Daily Burn Rate Dashboard 🔥
 
-## What technologies are used for this project?
+* Shows how much the user can safely spend **per day**
+* Adjusts dynamically based on:
 
-This project is built with:
+  * Monthly allowance
+  * Expenses already made
+  * Days remaining
+* Warns users if they are overspending early in the month
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+### 4️⃣ What-If Simulator 🧮
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+* Lets users test scenarios like:
 
-## Can I connect a custom domain to my Lovable project?
+  > “What if I skip 3 coffee orders this week?”
+* Shows:
 
-Yes, you can!
+  * Money saved
+  * Extra days of budget life
+  * Equivalent street food meals
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### 5️⃣ Chai-Samosa Index ☕🥟
+
+* Converts unnecessary expenses into **street food equivalents**
+* City-based pricing (Delhi, Mumbai, Bangalore, etc.)
+* Makes spending insights fun, relatable, and memorable
+
+---
+
+### 6️⃣ UPI Message Parsing
+
+* Paste UPI SMS or notification text
+* Automatically extracts:
+
+  * Amount (₹)
+  * Merchant name
+  * Date
+* Creates a categorized expense entry
+
+---
+
+### 7️⃣ Payment Gateway Webhook Simulation
+
+* Simulates Razorpay / Cashfree-style webhooks
+* Demonstrates real-world payment lifecycle
+* Uses **test-mode events only**
+* Educates users on fintech backend flows
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* React (Lovable)
+* Vite
+* Tailwind CSS
+* Recharts (data visualization)
+
+### Backend / Cloud
+
+* Lovable Cloud (Supabase-based)
+* PostgreSQL
+* Edge Functions (TypeScript)
+
+### AI Logic
+
+* Expense categorization
+* Spending prediction
+* Smart insights & alerts
+
+---
+
+## 🗄️ Database Schema (Simplified)
+
+### transactions
+
+* id
+* amount (INR)
+* category
+* merchant_name
+* payment_method (UPI / Cash / Card / Simulated Gateway)
+* status (pending / confirmed)
+* created_at
+
+### webhook_events
+
+* id
+* provider
+* payload
+* processed_at
+
+### profiles
+
+* user_id
+* city
+* monthly_allowance
+* allowance_date
+
+---
+
+## 🇮🇳 Indian Localization
+
+* Currency: **₹ INR**
+* Indian number system (Lakhs / Crores)
+* Date format: **DD/MM/YYYY**
+* City-based spending context
+* Festival-aware budgeting (Diwali, Holi buffers)
+
+---
+
+## 🔐 Compliance & Safety
+
+* ❌ No wallet functionality
+* ❌ No direct money transfer
+* ❌ No bank account access
+* ✅ Expense tracking only
+* ✅ RBI-safe and academic-friendly
+
+> RupeeRise AI tracks spending intelligence, not payments
+
+---
+
+## 🎓 Academic & Hackathon Value
+
+This project demonstrates:
+
+* Fintech system design
+* UPI ecosystem understanding
+* Secure data handling concepts
+* Real-time dashboards
+* AI-assisted decision making
+
+Perfect for:
+
+* Major project review
+* Hackathons
+* Fintech internships
+* Startup demos
+
+---
+
+## 🔮 Future Scope
+
+* RBI-compliant bank API integration
+* Account Aggregator (AA) framework support
+* Real SMS parsing on Android
+* Personalized AI financial advisor
+* Subscription cancellation suggestions
+
+---
+
+## 🧠 Key Design Philosophy
+
+> “We separated payment execution from expense intelligence.
+> RupeeRise AI focuses on the data layer — where real fintech innovation happens.”
+
+---
+
+## 👨‍🎓 Built For
+
+Indian students who want:
+
+* Control over spending
+* Realistic finance tools
+* Simple, friendly, and powerful insights
+
+---
+
+## 📌 Disclaimer
+
+RupeeRise AI is an educational project. All payment-related features are simulated and do not involve real money processing.
+
+---
+
+### ⭐ If you’re reviewing this project:
+
+This is not just an app — it’s a **fintech-ready system design demonstration**.
