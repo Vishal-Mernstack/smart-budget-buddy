@@ -117,6 +117,9 @@ export type Database = {
           created_at: string
           description: string
           id: string
+          merchant_name: string | null
+          payment_method: string | null
+          status: string | null
           transaction_date: string
           transaction_type: string
           upi_handle: string | null
@@ -128,6 +131,9 @@ export type Database = {
           created_at?: string
           description: string
           id?: string
+          merchant_name?: string | null
+          payment_method?: string | null
+          status?: string | null
           transaction_date?: string
           transaction_type: string
           upi_handle?: string | null
@@ -139,9 +145,45 @@ export type Database = {
           created_at?: string
           description?: string
           id?: string
+          merchant_name?: string | null
+          payment_method?: string | null
+          status?: string | null
           transaction_date?: string
           transaction_type?: string
           upi_handle?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      webhook_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          payload: Json
+          processed: boolean
+          processed_at: string | null
+          provider: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          payload?: Json
+          processed?: boolean
+          processed_at?: string | null
+          provider?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          payload?: Json
+          processed?: boolean
+          processed_at?: string | null
+          provider?: string
           user_id?: string
         }
         Relationships: []
