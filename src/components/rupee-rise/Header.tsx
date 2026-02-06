@@ -1,6 +1,8 @@
-import { TrendingUp, Bell } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { TrendingUp, Bell, BarChart3 } from 'lucide-react';
 import { isFestiveSeason } from '@/lib/inr';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 export function Header() {
   const festiveInfo = isFestiveSeason();
@@ -31,6 +33,12 @@ export function Header() {
       </div>
       
       <div className="flex items-center gap-3">
+        <Link to="/analytics">
+          <Button variant="outline" size="sm" className="gap-2">
+            <BarChart3 className="w-4 h-4" />
+            <span className="hidden sm:inline">Analytics</span>
+          </Button>
+        </Link>
         <button className="relative w-10 h-10 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors">
           <Bell className="w-5 h-5 text-muted-foreground" />
           <span className="absolute -top-1 -right-1 w-4 h-4 bg-destructive rounded-full text-[10px] text-white flex items-center justify-center">3</span>
