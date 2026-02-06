@@ -102,6 +102,144 @@ Indian students face rising expenses, irregular allowances, and poor visibility 
 
 ## 🛠️ Tech Stack
 
+---
+
+## 🧑‍💻 Local Setup & Execution Guide
+
+Follow these steps to run **RupeeRise AI locally** on your system for development, demo, or evaluation purposes.
+
+### ✅ Prerequisites
+
+Make sure you have the following installed:
+
+* Node.js **v18+**
+* npm or yarn
+* Git
+* A modern browser (Chrome / Edge / Firefox)
+
+Check versions:
+
+```
+node -v
+npm -v
+```
+
+---
+
+### 📦 Step 1: Clone the Repository
+
+```
+git clone https://github.com/your-username/rupeerise-ai.git
+cd rupeerise-ai
+```
+
+---
+
+### 📥 Step 2: Install Dependencies
+
+Using npm:
+
+```
+npm install
+```
+
+Or using yarn:
+
+```
+yarn install
+```
+
+---
+
+### ⚙️ Step 3: Environment Configuration
+
+Create a `.env` file in the root directory:
+
+```
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+> ℹ️ These values come from **Lovable Cloud / Supabase project settings**
+
+---
+
+### 🗄️ Step 4: Database Setup (Lovable Cloud)
+
+1. Enable **Lovable Cloud**
+2. Run the provided SQL schema to create:
+
+   * `profiles`
+   * `transactions`
+   * `webhook_events`
+3. Enable Row Level Security (RLS)
+4. Allow authenticated users to read/write their own data
+
+> For demos, mock data is supported automatically
+
+---
+
+### ▶️ Step 5: Run the App Locally
+
+```
+npm run dev
+```
+
+The app will start at:
+
+```
+http://localhost:5173
+```
+
+---
+
+### 🔁 Step 6: Test Key Features Locally
+
+* Toggle **Smart Auto Track**
+* Generate UPI Intent (simulated)
+* Add expenses manually or via UPI message paste
+* Observe real-time dashboard updates
+* Test webhook simulation (sandbox mode)
+
+---
+
+### 🧪 Optional: Demo Mode (Without Cloud)
+
+RupeeRise AI supports a **local demo mode**:
+
+* Uses in-memory mock data
+* No authentication required
+* Ideal for presentations and offline demos
+
+Enable via:
+
+```
+VITE_DEMO_MODE=true
+```
+
+---
+
+### 🛑 Common Issues & Fixes
+
+* **Blank screen** → Check `.env` values
+* **No data showing** → Verify Supabase tables & RLS policies
+* **UPI not opening** → Expected (simulated behavior)
+
+---
+
+### ✅ Production Build (Optional)
+
+```
+npm run build
+npm run preview
+```
+
+---
+
+> 💡 Tip: For academic submissions, include screenshots of the running local app
+
+---
+
 ### Frontend
 
 * React (Lovable)
