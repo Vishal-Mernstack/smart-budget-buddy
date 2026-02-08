@@ -4,47 +4,62 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Smartphone } from 'lucide-react';
-import { BudgetCategory, Transaction } from '@/types/rupee-rise';
+import { Plus, Smartphone, Loader2 } from 'lucide-react';
+import { BudgetCategory } from '@/types/rupee-rise';
 
 interface AddExpenseDialogProps {
   categories: BudgetCategory[];
-  onAddTransaction: (transaction: Omit<Transaction, 'id' | 'user_id' | 'created_at'>) => void;
+  onAddTransaction: (transaction: {
+    amount: number;
+    category: string;
+    description: string;
+    upi_handle?: string | null;
+    transaction_type: string;
+    transaction_date: string;
+  }) => Promise<any>;
 }
 
 export function AddExpenseDialog({ categories, onAddTransaction }: AddExpenseDialogProps) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [upiHandle, setUpiHandle] = useState('');
   const [type, setType] = useState<'expense' | 'income'>('expense');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!amount || !description || (type === 'expense' && !category)) return;
 
-    onAddTransaction({
-      amount: parseFloat(amount),
-      category: type === 'expense' ? category : 'Income',
-      description,
-      upi_handle: upiHandle || null,
-      transaction_date: new Date(),
-      transaction_type: type,
-    });
+    setLoading(true);
+    try {
+      const result = await onAddTransaction({
+        amount: parseFloat(amount),
+        category: type === 'expense' ? category : 'Income',
+        description,
+        upi_handle: upiHandle || null,
+        transaction_date: new Date().toISOString(),
+        transaction_type: type,
+      });
 
-    setAmount('');
-    setCategory('');
-    setDescription('');
-    setUpiHandle('');
-    setOpen(false);
+      if (result) {
+        setAmount('');
+        setCategory('');
+        setDescription('');
+        setUpiHandle('');
+        setOpen(false);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="gradient-primary text-primary-foreground shadow-card hover:opacity-90 transition-opacity">
-          <Plus className="w-4 h-4 mr-2" />
+        <Button variant="outline" className="gap-2">
+          <Plus className="w-4 h-4" />
           Add Transaction
         </Button>
       </DialogTrigger>
@@ -131,7 +146,8 @@ export function AddExpenseDialog({ categories, onAddTransaction }: AddExpenseDia
             </>
           )}
 
-          <Button type="submit" className="w-full gradient-primary text-primary-foreground">
+          <Button type="submit" className="w-full gradient-primary text-primary-foreground" disabled={loading}>
+            {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
             Add Transaction
           </Button>
         </form>

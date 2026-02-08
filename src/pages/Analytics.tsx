@@ -1,11 +1,12 @@
-import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowLeft, TrendingUp, TrendingDown, PieChart, BarChart3, Calendar } from 'lucide-react';
+import { useMemo, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, TrendingUp, TrendingDown, PieChart, BarChart3, Calendar, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useRupeeRise } from '@/hooks/useRupeeRise';
-import { formatRupee, formatLakhsCrores, formatShortIndianDate } from '@/lib/inr';
+import { useAuth } from '@/contexts/AuthContext';
+import { useBudgetData } from '@/hooks/useBudgetData';
+import { formatRupee, formatLakhsCrores } from '@/lib/inr';
 import { CategoryPieChart } from '@/components/analytics/CategoryPieChart';
 import { MonthlyTrendChart } from '@/components/analytics/MonthlyTrendChart';
 import { CategoryBarChart } from '@/components/analytics/CategoryBarChart';
@@ -13,7 +14,15 @@ import { SpendingInsights } from '@/components/analytics/SpendingInsights';
 import { MonthlyComparison } from '@/components/analytics/MonthlyComparison';
 
 export default function Analytics() {
-  const { categories, transactions, summary, profile } = useRupeeRise();
+  const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
+  const { categories, transactions, summary, profile, loading: dataLoading } = useBudgetData();
+
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/auth');
+    }
+  }, [user, authLoading, navigate]);
 
   // Calculate monthly spending data
   const monthlyData = useMemo(() => {
@@ -33,11 +42,11 @@ export default function Analytics() {
       
       const spending = monthTransactions
         .filter(t => t.transaction_type === 'expense')
-        .reduce((sum, t) => sum + t.amount, 0);
+        .reduce((sum, t) => sum + Number(t.amount), 0);
       
       const income = monthTransactions
         .filter(t => t.transaction_type === 'income')
-        .reduce((sum, t) => sum + t.amount, 0);
+        .reduce((sum, t) => sum + Number(t.amount), 0);
       
       monthsData.push({ month: monthName, monthKey, spending, income });
     }
@@ -48,12 +57,12 @@ export default function Analytics() {
   // Category-wise spending for current month
   const categoryData = useMemo(() => {
     return categories.map(cat => ({
-      name: cat.name,
+      name: cat.category,
       value: cat.spent,
-      limit: cat.limit,
+      limit: cat.limit_amount,
       color: cat.color,
       icon: cat.icon,
-      percentage: cat.limit > 0 ? Math.round((cat.spent / cat.limit) * 100) : 0,
+      percentage: cat.limit_amount > 0 ? Math.round((cat.spent / cat.limit_amount) * 100) : 0,
     }));
   }, [categories]);
 
@@ -69,9 +78,21 @@ export default function Analytics() {
     if (monthlyData.length < 2) return 0;
     const current = monthlyData[monthlyData.length - 1].spending;
     const previous = monthlyData[monthlyData.length - 2].spending;
-    if (previous === 0) return 0;
+    if (previous === 0) return current > 0 ? 100 : 0;
     return Math.round(((current - previous) / previous) * 100);
   }, [monthlyData]);
+
+  if (authLoading || dataLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -96,7 +117,7 @@ export default function Analytics() {
             </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Calendar className="w-4 h-4" />
-              <span>{profile.city}</span>
+              <span>{profile?.city || 'Delhi'}</span>
             </div>
           </div>
         </div>
@@ -128,7 +149,7 @@ export default function Analytics() {
             <CardContent className="p-4">
               <p className="text-sm text-muted-foreground">Budget Used</p>
               <p className="text-2xl font-display font-bold text-foreground">
-                {Math.round((summary.totalSpent / summary.totalBudget) * 100)}%
+                {summary.totalBudget > 0 ? Math.round((summary.totalSpent / summary.totalBudget) * 100) : 0}%
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 of {formatLakhsCrores(summary.totalBudget)}
