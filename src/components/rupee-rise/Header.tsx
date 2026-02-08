@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
-import { TrendingUp, Bell, BarChart3 } from 'lucide-react';
+import { TrendingUp, Bell, BarChart3, Settings } from 'lucide-react';
 import { isFestiveSeason } from '@/lib/inr';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 
-export function Header() {
+interface HeaderProps {
+  userName?: string | null;
+}
+
+export function Header({ userName }: HeaderProps) {
   const festiveInfo = isFestiveSeason();
   const currentDate = new Date().toLocaleDateString('en-IN', { 
     weekday: 'long', 
@@ -28,15 +32,22 @@ export function Header() {
               </Badge>
             )}
           </div>
-          <p className="text-sm text-muted-foreground">{currentDate}</p>
+          <p className="text-sm text-muted-foreground">
+            {userName ? `Welcome, ${userName}` : currentDate}
+          </p>
         </div>
       </div>
       
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <Link to="/analytics">
           <Button variant="outline" size="sm" className="gap-2">
             <BarChart3 className="w-4 h-4" />
             <span className="hidden sm:inline">Analytics</span>
+          </Button>
+        </Link>
+        <Link to="/settings">
+          <Button variant="outline" size="icon" className="h-9 w-9">
+            <Settings className="w-4 h-4" />
           </Button>
         </Link>
         <button className="relative w-10 h-10 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors">
