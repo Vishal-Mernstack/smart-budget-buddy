@@ -13,6 +13,10 @@ import { DailyBurnRate } from '@/components/rupee-rise/DailyBurnRate';
 import { WhatIfSimulator } from '@/components/rupee-rise/WhatIfSimulator';
 import { ChaiSamosaIndex } from '@/components/rupee-rise/ChaiSamosaIndex';
 import { UPIPayment } from '@/components/rupee-rise/UPIPayment';
+import { SpendingStreaks } from '@/components/rupee-rise/SpendingStreaks';
+import { BillSplitCalculator } from '@/components/rupee-rise/BillSplitCalculator';
+import { ExpenseHeatmap } from '@/components/rupee-rise/ExpenseHeatmap';
+import { SmartBudgetAlerts } from '@/components/rupee-rise/SmartBudgetAlerts';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -60,6 +64,14 @@ const Index = () => {
 
   return (
     <div className="min-h-screen gradient-hero">
+      <SmartBudgetAlerts
+        categories={categories}
+        dailyBurnRate={summary.dailyBurnRate}
+        remaining={summary.remaining}
+        daysUntilAllowance={summary.daysUntilAllowance}
+        totalSpent={summary.totalSpent}
+        totalBudget={summary.totalBudget}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <Header userName={profile?.display_name || user.email?.split('@')[0]} />
         
@@ -131,6 +143,9 @@ const Index = () => {
             {/* What-If Simulator */}
             <WhatIfSimulator summary={summary} city={profile?.city || 'Delhi'} />
 
+            {/* Bill Split Calculator */}
+            <BillSplitCalculator />
+
             {/* Transactions */}
             <div className="mt-4">
               <h2 className="font-display text-lg font-semibold text-foreground mb-4">Recent Transactions</h2>
@@ -165,6 +180,18 @@ const Index = () => {
 
           {/* Right Column - Chart & Chai-Samosa Index */}
           <div className="space-y-6">
+            {/* Spending Streaks & Gamification */}
+            <SpendingStreaks
+              transactions={transactions}
+              dailyBudget={summary.dailyBurnRate > 0 ? summary.dailyBurnRate : 500}
+            />
+
+            {/* Expense Heatmap Calendar */}
+            <ExpenseHeatmap
+              transactions={transactions}
+              dailyBudget={summary.dailyBurnRate > 0 ? summary.dailyBurnRate : 500}
+            />
+
             <SpendingChart categories={categories.map(c => ({
               id: c.id,
               name: c.category,
