@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      bill_splits: {
+        Row: {
+          created_at: string
+          id: string
+          settled: boolean
+          settled_at: string | null
+          split_with: Json
+          title: string
+          total_amount: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          settled?: boolean
+          settled_at?: string | null
+          split_with?: Json
+          title: string
+          total_amount: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          settled?: boolean
+          settled_at?: string | null
+          split_with?: Json
+          title?: string
+          total_amount?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       budgets: {
         Row: {
           category: string
