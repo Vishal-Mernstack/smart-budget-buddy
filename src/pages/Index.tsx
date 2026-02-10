@@ -17,6 +17,8 @@ import { SpendingStreaks } from '@/components/rupee-rise/SpendingStreaks';
 import { BillSplitCalculator } from '@/components/rupee-rise/BillSplitCalculator';
 import { ExpenseHeatmap } from '@/components/rupee-rise/ExpenseHeatmap';
 import { SmartBudgetAlerts } from '@/components/rupee-rise/SmartBudgetAlerts';
+import { ExportTransactions } from '@/components/rupee-rise/ExportTransactions';
+import { SavingsGoals } from '@/components/rupee-rise/SavingsGoals';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -148,7 +150,10 @@ const Index = () => {
 
             {/* Transactions */}
             <div className="mt-4">
-              <h2 className="font-display text-lg font-semibold text-foreground mb-4">Recent Transactions</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="font-display text-lg font-semibold text-foreground">Recent Transactions</h2>
+                <ExportTransactions transactions={transactions} />
+              </div>
               {transactions.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
                   <p>No transactions yet. Add your first expense!</p>
@@ -209,13 +214,16 @@ const Index = () => {
               city={profile?.city || 'Delhi'}
             />
             
-            {/* Savings Goal */}
+            {/* Savings Goals */}
+            <SavingsGoals />
+
+            {/* Savings Goal (Legacy) */}
             <div className="p-5 rounded-xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 animate-fade-in">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-2xl">🎯</span>
-                <h3 className="font-display font-semibold text-foreground">Savings Goal</h3>
+                <h3 className="font-display font-semibold text-foreground">Quick Savings</h3>
               </div>
-              <p className="text-sm text-muted-foreground mb-3">New iPhone Fund</p>
+              <p className="text-sm text-muted-foreground mb-3">Monthly Surplus</p>
               <div className="h-2 bg-secondary rounded-full overflow-hidden mb-2">
                 <div 
                   className="h-full gradient-primary rounded-full animate-progress" 
