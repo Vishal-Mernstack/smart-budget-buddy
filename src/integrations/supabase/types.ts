@@ -113,6 +113,42 @@ export type Database = {
         }
         Relationships: []
       }
+      savings_goals: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          current_amount: number
+          icon: string
+          id: string
+          target_amount: number
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          current_amount?: number
+          icon?: string
+          id?: string
+          target_amount: number
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          current_amount?: number
+          icon?: string
+          id?: string
+          target_amount?: number
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       student_perks: {
         Row: {
           amount_saved: number

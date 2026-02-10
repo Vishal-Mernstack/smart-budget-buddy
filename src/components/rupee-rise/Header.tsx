@@ -3,6 +3,7 @@ import { TrendingUp, Bell, BarChart3, Settings } from 'lucide-react';
 import { isFestiveSeason } from '@/lib/inr';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
   userName?: string | null;
@@ -45,6 +46,7 @@ export function Header({ userName }: HeaderProps) {
             <span className="hidden sm:inline">Analytics</span>
           </Button>
         </Link>
+        <ThemeToggle />
         <Link to="/settings">
           <Button variant="outline" size="icon" className="h-9 w-9">
             <Settings className="w-4 h-4" />
