@@ -113,6 +113,54 @@ export type Database = {
         }
         Relationships: []
       }
+      recurring_transactions: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          day_of_month: number
+          description: string
+          frequency: string
+          id: string
+          is_active: boolean
+          last_run_date: string | null
+          next_run_date: string
+          transaction_type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category: string
+          created_at?: string
+          day_of_month?: number
+          description: string
+          frequency?: string
+          id?: string
+          is_active?: boolean
+          last_run_date?: string | null
+          next_run_date?: string
+          transaction_type?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          day_of_month?: number
+          description?: string
+          frequency?: string
+          id?: string
+          is_active?: boolean
+          last_run_date?: string | null
+          next_run_date?: string
+          transaction_type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       savings_goals: {
         Row: {
           completed_at: string | null
