@@ -19,6 +19,7 @@ import { ExpenseHeatmap } from '@/components/rupee-rise/ExpenseHeatmap';
 import { SmartBudgetAlerts } from '@/components/rupee-rise/SmartBudgetAlerts';
 import { ExportTransactions } from '@/components/rupee-rise/ExportTransactions';
 import { SavingsGoals } from '@/components/rupee-rise/SavingsGoals';
+import { RecurringTransactions } from '@/components/rupee-rise/RecurringTransactions';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -144,6 +145,12 @@ const Index = () => {
 
             {/* What-If Simulator */}
             <WhatIfSimulator summary={summary} city={profile?.city || 'Delhi'} />
+
+            {/* Recurring Transactions */}
+            <RecurringTransactions 
+              categories={categories.map(c => ({ id: c.id, category: c.category, icon: c.icon }))}
+              onTransactionAdded={handleAddTransaction}
+            />
 
             {/* Bill Split Calculator */}
             <BillSplitCalculator />
