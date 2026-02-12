@@ -12,6 +12,7 @@ import { MonthlyTrendChart } from '@/components/analytics/MonthlyTrendChart';
 import { CategoryBarChart } from '@/components/analytics/CategoryBarChart';
 import { SpendingInsights } from '@/components/analytics/SpendingInsights';
 import { MonthlyComparison } from '@/components/analytics/MonthlyComparison';
+import { MonthlyBudgetComparison } from '@/components/analytics/MonthlyBudgetComparison';
 
 export default function Analytics() {
   const navigate = useNavigate();
@@ -216,6 +217,7 @@ export default function Analytics() {
           </TabsContent>
 
           <TabsContent value="comparison" className="space-y-6">
+            <MonthlyBudgetComparison data={monthlyData} totalBudget={summary.totalBudget} />
             <MonthlyComparison data={monthlyData} categories={categoryData} />
           </TabsContent>
         </Tabs>
